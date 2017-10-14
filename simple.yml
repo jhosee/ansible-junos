@@ -1,0 +1,16 @@
+- name: Verifying NETCONF
+  hosts: all
+  tasks: 
+  - name: Verifying NETCONF
+    wait_for: host={{ inventory_hostname }} port=830
+      # variable defined in inventory file
+
+
+        - name: version
+    debug: msg="{{ junos.facts.version }}"
+
+    
+      - name: Retrieve information from devices running Junos OS
+    junos_get_facts:  
+      host={{ inventory_hostname }}
+    register: junos

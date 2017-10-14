@@ -1,0 +1,26 @@
+---
+- name: Run Juniper CLI Commands
+  hosts: all
+  connection: local
+  gather_facts: false
+
+  vars_prompt:
+  - name: USERNAME
+    prompt: User name
+    private: no
+  - name: DEVICE_PASSWORD
+    prompt: Device password
+    private: yes
+
+  tasks:
+    - name: CLI
+      junos_command:
+        commands: sho int terse | match inet
+        display: text
+        provider:
+          host: "{{ inventory_hostname }}"
+          username: "{{ USERNAME }}"
+          password: "{{ DEVICE_PASSWORD }}"
+          port: 830
+      register: output
+    - debug: var=output.stdout_lines

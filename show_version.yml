@@ -1,0 +1,10 @@
+---
+- name: Test Playbook
+  hosts: all
+  tasks:
+    - name: show-version
+      tags: show-version
+      wait_for: host={{ inventory_hostname }} port=830
+      junos_get_config: host={{ inventory_hostname }}
+        dest="{{ inventory_hostname }}_config.txt"
+        format=text

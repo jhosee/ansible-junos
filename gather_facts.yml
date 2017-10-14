@@ -1,0 +1,26 @@
+---
+- hosts: all
+  connection: local
+  gather_facts: no
+  vars_prompt:
+  - name: USERNAME
+    prompt: User name
+    private: no
+  - name: DEVICE_PASSWORD
+    prompt: Device password
+    private: yes
+  tasks:
+    - wait_for: host={{ inventory_hostname }} port=22 timeout=5
+    - junos_get_facts:
+        host={{ inventory_hostname }}
+        user={{ USERNAME }}
+        passwd={{ DEVICE_PASSWORD }}
+      register: junos
+    - debug: var=junos.facts
+
+# cd project
+# ansible-playbook -i hosts gather_facts.yml
+
+#    sudo apt-add-repository ppa:ansible/ansible
+#    sudo apt-get update -y
+#    sudo apt-get install -y ansible
