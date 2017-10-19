@@ -1,0 +1,10 @@
+2017-10-19 11:22:21,008:CONFIG:10.20.8.7:connecting to host: jhosee@10.20.8.7:830
+2017-10-19 11:22:21,166:ncclient.transport.ssh:Connected (version 2.0, client OpenSSH_6.6.1)
+2017-10-19 11:22:21,341:ncclient.transport.ssh:Auth banner: WARNING! This system and all related computer equipment & devices, software, network activity, and data are for the use of authorized ESET, LLC users only. All usage on this system may be monitored for compliance in accordance to ESET, LLC technology policies. Unauthorized usage is strictly prohibited and may be punishable under the Computer Fraud and Abuse Act of 1986 and the National Information Infrastructure Protection Act. Unauthorized or improper use of this system may result in administrative disciplinary action, civil, or criminal penalties. By continuing to use this system you indicate your awareness of and consent to these terms and conditions of use.
+
+2017-10-19 11:22:21,341:ncclient.transport.ssh:Authentication (publickey) failed.
+2017-10-19 11:22:21,410:ncclient.transport.ssh:Authentication (password) successful!
+2017-10-19 11:22:22,170:ncclient.transport.session:initialized: session-id=4779 | server_capabilities=<dictionary-keyiterator object at 0x7f9224855c58>
+2017-10-19 11:22:22,170:CONFIG:10.20.8.7:Getting config with options={'format': 'text'}
+2017-10-19 11:22:22,170:ncclient.operations.rpc:Requesting 'ExecuteRpc'
+2017-10-19 11:22:23,440:ncclient.operations.rpc:Requesting 'CloseSession'

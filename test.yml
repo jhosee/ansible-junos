@@ -26,6 +26,6 @@
       dest='{{ inventory_hostname }}_config.txt'
     register: junos
 
-  - name: version
-    debug: msg="{{ junos.facts.version }}"
+#  - name: version
+    debug: msg="{{ junos.facts }}"
 
