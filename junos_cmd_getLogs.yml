@@ -1,0 +1,31 @@
+---
+- name: Run Juniper CLI Commands
+  hosts: all
+  connection: local
+  gather_facts: false
+
+  vars_prompt:
+  - name: USER
+    prompt: User name
+    private: no
+  - name: PWD
+    prompt: Device password
+    private: yes
+
+  tasks:
+    - name: CLI
+      junos_command:
+        commands: file archive compress source /var/log destination /var/tmp/{{ inventory_hostname }}
+        display: text
+        provider:
+          host: "{{ inventory_hostname }}"
+          username: "{{ USER }}"
+          password: "{{ PWD }}"
+          port: 22
+
+    - name: COPY
+      shell: sshpass -p {{ PWD }} scp {{ USER }}@{{ inventory_hostname }}:/var/tmp/vSRX.tgz /users/dad/documents/CompStuff/repos/ansible-working/.
+#      copy: src={{INVENTORY_HOST}}:/var/tmp/vSRX.tgz dest=vSRX.tgz flat=yes
+
+      register: output
+    - debug: var=output.stdout_lines
