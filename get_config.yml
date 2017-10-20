@@ -24,8 +24,14 @@
       user={{ USERNAME }}
       passwd={{ DEVICE_PASSWORD }}
       dest='{{ inventory_hostname }}_config.txt'
-    register: junos
+      logfile=debug.log
 
-#  - name: version
-#    debug: msg="{{ junos.facts.version }}"
+#    register: junos
 
+#  - name: output
+#    debug: msg="{{ junos.config }}"
+
+#  - debug: var=junos.config
+#  - debug: var=output.stdout_lines
+
+#
