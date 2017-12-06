@@ -1,0 +1,29 @@
+---
+- name: Create and Retrieve RSI file
+  hosts: all
+  connection: local
+  gather_facts: no
+
+  vars_prompt:
+  - name: USER
+    prompt: Username
+    private: no
+  - name: PWD
+    prompt: Password
+    private: yes
+
+  tasks:
+    - name: COMMAND
+      junos_command:
+        commands: request support information | save /var/tmp/{{ inventory_hostname }}.RSI.20171021.txt
+#        rpcs: get-support-information
+        display: text
+        provider:
+          host: "{{ inventory_hostname }}"
+          username: "{{ USER }}"
+          password: "{{ PWD }}"
+          port: 830
+
+      register: output
+    - debug: var=output.stdout_lines
+

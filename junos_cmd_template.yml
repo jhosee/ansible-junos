@@ -13,14 +13,18 @@
     private: yes
 
   tasks:
+    - name: CHECKING NETCONF CONNECTIVITY
+      wait_for: host={{ inventory_hostname }} port=830 timeout=5
+
     - name: CLI
       junos_command:
         commands: sho int terse | match inet
         display: text
-        provider:
+        provider: "{{ netconf }}"
           host: "{{ inventory_hostname }}"
           username: "{{ USERNAME }}"
           password: "{{ DEVICE_PASSWORD }}"
           port: 830
       register: output
+      
     - debug: var=output.stdout_lines

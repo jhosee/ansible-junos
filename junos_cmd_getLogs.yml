@@ -1,6 +1,6 @@
 ---
 - name: Run Juniper CLI Commands
-  hosts:  switches_edge
+  hosts:  all
   connection: local
   gather_facts: false
 
@@ -15,16 +15,16 @@
   tasks:
     - name: CLI
       junos_command:
-        commands: file archive compress source /var/log destination /var/tmp/{{ inventory_hostname }}.LOGS.20171020
+        commands: file archive compress source /var/log destination /var/tmp/{{ inventory_hostname }}.LOGS.20171031
         display: text
         provider:
           host: "{{ inventory_hostname }}"
-          username: "{{ USER }}"
-          password: "{{ PWD }}"
+          user: "{{ USER }}"
+          passwd: "{{ PWD }}"
           port: 830
 
     - name: SHELL SCP COMMAND
-      shell: sshpass -p {{ PWD }} scp {{ USER }}@{{ inventory_hostname }}:/var/tmp/*.*1020.tgz /usvr01-shared/ansible/.
+      shell: sshpass -p {{ PWD }} scp {{ USER }}@{{ inventory_hostname }}:/var/tmp/*.*1031.tgz /usvr01-shared/ansible/.
 #      copy: src={{INVENTORY_HOST}}:/var/tmp/vSRX.tgz dest=vSRX.tgz flat=yes
 
       register: output

@@ -1,0 +1,32 @@
+---
+- name: juniper_junos_command - Get Configuration of Junos devices
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - Juniper.junos
+
+  vars_prompt:
+    - name: USER
+      prompt: Username
+      private: no
+    - name: PWD
+      prompt: Password
+      private: yes
+
+  tasks:
+    - name: CHECKING NETCONF CONNECTIVITY
+      wait_for: host={{ inventory_hostname }} port=830 timeout=5
+
+    - name: Show Version 
+      juniper_junos_command:
+        host: "{{ inventory_hostname }}"
+        user: "{{ USER }}"
+        passwd: "{{ PWD }}"
+        port: 830
+        commands: "show version"
+      register: response
+
+    - name: Print the command output
+      debug:
+        var: response.stdout
