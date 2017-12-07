@@ -24,11 +24,11 @@
         diff: false
         check: false
         commit: false
-      provider:
-        host: "{{ inventory_hostname }}"
-        user: "{{ USER }}"
-        passwd: "{{ PWD }}"
-        port: 830
+        provider:
+          host: "{{ inventory_hostname }}"
+          user: "{{ USER }}"
+          passwd: "{{ PWD }}"
+          port: 830
       register: response
 
     - name: 'Print the complete response'

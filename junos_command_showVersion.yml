@@ -20,13 +20,17 @@
 
     - name: Show Version 
       juniper_junos_command:
-        host: "{{ inventory_hostname }}"
-        user: "{{ USER }}"
-        passwd: "{{ PWD }}"
-        port: 830
         commands: "show version"
+        return_output: true
+        format: text
+        dest_dir: "./outputs/"
+        provider:
+          host: "{{ inventory_hostname }}"
+          user: "{{ USER }}"
+          passwd: "{{ PWD }}"
+          port: 830
       register: response
 
     - name: Print the command output
       debug:
-        var: response.stdout
+        var: response.stdout_lines

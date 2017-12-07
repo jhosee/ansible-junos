@@ -20,13 +20,14 @@
       
     - name: Request Support Information
       juniper_junos_command:
-        host: "{{ inventory_hostname }}"
-        user: "{{ USER }}"
-        passwd: "{{ PWD }}"
-        port: 830
         commands: "request support information | save /var/tmp/{{ inventory_hostname }}.RSI.20171021.txt"
         timeout: 300
         dest_dir: "."
+        provider:
+          host: "{{ inventory_hostname }}"
+          user: "{{ USER }}"
+          passwd: "{{ PWD }}"
+          port: 830
       register: response
 
     - name: Print the command output
