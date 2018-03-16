@@ -1,0 +1,22 @@
+set firewall family ethernet-switching filter HORIZON term BLAST_SRC from ip-protocol tcp source-port 8443 
+
+set firewall family ethernet-switching filter HORIZON term BLAST_DST from ip-protocol tcp destination-port 8443  
+
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_SRC from ip-protocol tcp source-port 443 
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_SRC from ip-source-address 10.29.0.0/16
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_SRC from ip-source-address 10.10.32.64/28
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_SRC then count blast-ssl-src-counter
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_SRC then forwarding-class horizon
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_SRC then loss-priority medium-low
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_SRC then accept
+
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_DST from ip-protocol tcp destination-port 443 
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_DST from ip-destination-address 10.29.0.0/16
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_DST from ip-destination-address 10.10.32.64/28
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_DST then count blast-ssl-dst-counter
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_DST then forwarding-class horizon
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_DST then loss-priority medium-low
+set firewall family ethernet-switching filter HORIZON term BLAST_SSL_DST then accept
+
+delete firewall family ethernet-switching filter HORIZON term accept-all then accept
+set firewall family ethernet-switching filter HORIZON term accept-all then accept

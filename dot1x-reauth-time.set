@@ -1,0 +1,1 @@
+set protocols dot1x authenticator interface all reauthentication 43200

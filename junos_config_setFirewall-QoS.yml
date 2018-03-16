@@ -1,6 +1,6 @@
 ---
-- name: juniper_junos_command - Get RSI
-  hosts: all
+- name: juniper_junos_command - set firewall
+  hosts: switches_datacenter
   connection: local
   gather_facts: no
   roles:
@@ -18,18 +18,22 @@
     - name: CHECKING NETCONF CONNECTIVITY
       wait_for: host={{ inventory_hostname }} port=830 timeout=5
       
-    - name: Request Support Information
-      juniper_junos_command:
-        commands: "request support information | save /var/tmp/{{ inventory_hostname }}.RSI.20171021.txt"
-        timeout: 300
-        dest_dir: "."
+    - name: Load set commands from file and commit
+      juniper_junos_config:
+        return_output: true
+        load: 'merge'
+        format: 'set'
+        src: "horizon-bl-extra-NONELS.set"
+        comment: "Configuring firewall filters with Ansible"
+        dest_dir: "./outputs/"
         provider:
           host: "{{ inventory_hostname }}"
           user: "{{ USER }}"
           passwd: "{{ PWD }}"
           port: 830
+          timeout: 600
       register: response
 
     - name: Print the command output
       debug:
-        var: response.stdout_lines
+        var: response.diff_lines

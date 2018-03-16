@@ -21,16 +21,17 @@
     - name: Request Support Information
       juniper_junos_command:
         commands: "request support information"
-        timeout: 600
-        dest_dir: "."
+        return_output: true
+        format: text
+        dest_dir: "./outputs/"
         provider:
           host: "{{ inventory_hostname }}"
           user: "{{ USER }}"
           passwd: "{{ PWD }}"
           port: 830
+          timeout: 600
       register: response
 
     - name: Print the command output
       debug:
         var: response.stdout_lines
-        

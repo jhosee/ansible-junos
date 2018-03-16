@@ -31,7 +31,6 @@
           port: 830
       register: response
 
-    - name: 'Print the complete response'
+    - name: Print the command output
       debug:
-        var: response
-        
+        var: response.stdout_lines
