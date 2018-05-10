@@ -1,0 +1,32 @@
+---
+- name: Run sshpass via Ansible
+  hosts: all
+  connection: local
+  gather_facts: false
+
+  vars_prompt:
+    - name: USER
+      prompt: Username
+      private: no
+    - name: PWD
+      prompt: Password
+      private: yes
+
+  tasks:
+    - name: CHECKING NETCONF CONNECTIVITY
+      wait_for: host={{ inventory_hostname }} port=830 timeout=5
+    - name: Set file path
+      set_fact: 
+        FILE: /mnt/share/junos/ex4500/jinstall-ex-4500-15.1R7.8-domestic-signed.tgz
+    - name: SHELL SCP COMMAND LOCAL TO REMOTE
+      shell: sshpass -p {{ PWD }} scp {{ FILE }} {{ USER }}@{{ inventory_hostname }}:/var/tmp/.
+
+      register: output
+    
+    - debug: var=output
+
+
+
+# san-j3400-7f-sw1-mgmt
+
+# /mnt/share/junos/ex4500/jinstall-ex-4500-15.1R7.8-domestic-signed.tgz

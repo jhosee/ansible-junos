@@ -1,6 +1,6 @@
 ---
 - name: Run Juniper CLI Commands
-  hosts:  all
+  hosts: all
   connection: local
   gather_facts: false
 

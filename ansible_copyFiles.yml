@@ -1,0 +1,21 @@
+---
+- name: Run Juniper CLI Commands
+  hosts:  san-j3400-7f-sw1-mgmt
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Copy files to target network devices
+    copy:
+    src: /mnt/share/junos/ex4500/jinstall-ex-4500-15.1R7.8-domestic-signed.tgz
+    dest: /var/tmp/.
+
+
+
+      register: output
+    - debug: var=output.stdout_lines
+
+
+# san-j3400-7f-sw1-mgmt
+
+# /mnt/share/junos/ex4500/jinstall-ex-4500-15.1R7.8-domestic-signed.tgz
